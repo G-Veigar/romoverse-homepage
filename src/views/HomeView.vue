@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <HomeHeader></HomeHeader>
-    <HomeMain></HomeMain>
+    <HomeHeader v-model:page="currentPage"></HomeHeader>
+    <HomeMain v-model:page="currentPage"></HomeMain>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ import HomeMain from '@/components/home-main.vue';
 
 export default defineComponent({
   name: 'HomeView',
+  data() {
+    return {
+      currentPage: 0,
+    };
+  },
   components: {
     HomeHeader,
     HomeMain,

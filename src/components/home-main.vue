@@ -32,9 +32,31 @@
 import Fullpage from 'fullpage.js';
 
 export default {
+  props: {
+    page: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      fullPageIndex: 0,
+      fullpage: null,
+    };
+  },
+  watch: {
+    page(newVal) {
+      this.fullpage.moveTo(newVal + 1);
+    },
+  },
   mounted() {
     // eslint-disable-next-line no-new
-    new Fullpage('#fullpage', {
+    this.fullpage = new Fullpage('#fullpage', {
+      afterLoad: (origin, destination) => {
+        if (destination.index !== this.page) {
+          this.$emit('update:page', destination.index);
+        }
+      },
       // options here
       autoScrolling: true,
       scrollHorizontally: true,
