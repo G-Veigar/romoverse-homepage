@@ -31,6 +31,34 @@
         </div>
       </div>
       <div class="section five">
+        <div class="section-wrapper">
+          <div class="section-part section-left">left</div>
+          <div class="section-part section-middle">middle</div>
+          <div class="section-part section-right">
+            <div class="avatar-wrapper">
+              <img class="avatar-item" :class="{active: activeAvatar === 4753}" src="../assets/avatar/4753.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4754}" src="../assets/avatar/4754.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4755}" src="../assets/avatar/4755.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4756}" src="../assets/avatar/4756.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4757}" src="../assets/avatar/4757.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4758}" src="../assets/avatar/4758.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4759}" src="../assets/avatar/4759.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4760}" src="../assets/avatar/4760.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4761}" src="../assets/avatar/4761.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4762}" src="../assets/avatar/4762.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4763}" src="../assets/avatar/4763.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4764}" src="../assets/avatar/4764.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4765}" src="../assets/avatar/4765.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4766}" src="../assets/avatar/4766.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4767}" src="../assets/avatar/4767.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4768}" src="../assets/avatar/4768.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4769}" src="../assets/avatar/4769.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4770}" src="../assets/avatar/4770.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4771}" src="../assets/avatar/4771.png" alt="">
+              <img class="avatar-item" :class="{active: activeAvatar === 4772}" src="../assets/avatar/4772.png" alt="">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="section end">
         <img class="planet-big" src="../assets/planet-big.png" alt="">
@@ -58,7 +86,13 @@ export default {
     return {
       fullPageIndex: 0,
       fullpage: null,
+      activeAvatar: 4758,
     };
+  },
+  methods: {
+    randomAvatar() {
+      this.activeAvatar = 4753 + Math.floor(Math.random() * (4772 - 4753));
+    },
   },
   watch: {
     page(newVal) {
@@ -77,6 +111,7 @@ export default {
       autoScrolling: true,
       scrollHorizontally: true,
     });
+    setInterval(this.randomAvatar, 1000);
   },
 };
 </script>
@@ -174,6 +209,36 @@ export default {
 
   &.five {
     background-color: #250937;
+
+    .section-wrapper {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .section-part {
+      flex: 1;
+    }
+
+    .section-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-size: 0;
+    }
+
+    .avatar-item {
+      width: 90px;
+      height: 90px;
+      margin-left: 6px;
+      margin-bottom: 6px;
+      opacity: 0.5;
+      transition: all 0.5s;
+
+      &.active {
+        opacity: 1;
+      }
+    }
   }
 
   &.end {
