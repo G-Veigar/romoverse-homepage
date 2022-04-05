@@ -9,15 +9,31 @@
       </div>
       <div class="section three">
         <img class="cloud-img" src="../assets/cloud.webp" alt="">
-        <img class="greed-star-big" src="../assets/green-star-big.png" alt="">
-        <img class="green-star-mini2" src="../assets/green-star-mini2.png" alt="">
-        <img class="green-star" src="../assets/green-star.png" alt="">
+        <img
+          class="greed-star-big"
+          :class="{'animate__animated': page === 2, 'animate__jello': page === 2}"
+          src="../assets/green-star-big.png"
+          alt="">
+        <img
+          class="green-star-mini2"
+          src="../assets/green-star-mini2.png" alt="">
+        <img
+          class="green-star"
+          src="../assets/green-star.png"
+          alt="" />
       </div>
       <div class="section four">
-        <img class="airship-big" src="../assets/airship-big.png" alt="">
+        <div class="img-block">
+          <img class="star-red" src="../assets/star-red.png" alt="">
+          <img class="star-yellow" src="../assets/star-yellow.png" alt="">
+          <img class="star-purple" src="../assets/star-purple.png" alt="">
+          <img class="airship-big" src="../assets/airship-big.png" alt="">
+        </div>
       </div>
-      <div class="section five"></div>
+      <div class="section five">
+      </div>
       <div class="section end">
+        <img class="planet-big" src="../assets/planet-big.png" alt="">
         <div class="copy-right">
           <div class="copy-right-main">
             © 2021-2025 by RomoVerse
@@ -83,7 +99,14 @@ export default {
 
   &.three {
     background:
-    linear-gradient(180deg, #BB6F79 21.854686737060547%, #4682B4 91.72639846801758%, #287EAB 100%);
+    // linear-gradient(180deg, #BB6F79 0%, #287EAB 100%);
+    linear-gradient(180deg, #260E36 0%, #4682B4 100%);
+    // transition: all 0.8s;
+
+    // &.active {
+    //   background: linear-gradient(180deg, #260E36 0%, #000000 100%);
+    // }
+
     .cloud-img {
       width: 455px;
       right: 0;
@@ -112,11 +135,40 @@ export default {
     background:
     linear-gradient(180deg, #4682B4 0%, #000000 100%);
 
-    .airship-big {
+    .img-block {
       position: absolute;
       left: 150px;
       bottom: 30px;
-      width: 405px;
+      width: 500px;
+      height: 500px;
+
+      .star-red {
+        width: 67px;
+        height: 67px;
+        position: absolute;
+        bottom: 190px;
+        left: 400px;
+      }
+
+      .star-yellow {
+        position: absolute;
+        bottom: 500px;
+        left: 450px;
+        width: 55px;
+      }
+
+      .star-purple {
+        position: absolute;
+        width: 61px;
+        left: 0;
+      }
+
+      .airship-big {
+        position: absolute;
+        left: 0px;
+        bottom: 30px;
+        width: 405px;
+      }
     }
   }
 
@@ -126,6 +178,20 @@ export default {
 
   &.end {
     background: linear-gradient(180deg, #000000 12.51974105834961%, #B75FA0 100%);
+
+    &.active {
+      .planet-big {
+        right: 6vw;
+      }
+    }
+
+    .planet-big {
+      width: 745px;
+      position: absolute;
+      bottom: 100px;
+      right: 25vw;
+      transition: all 1s;
+    }
 
     .copy-right {
       display: flex;
