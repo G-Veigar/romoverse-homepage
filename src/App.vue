@@ -3,6 +3,11 @@
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: MarkerFelt;
+  src: url('./assets/font/MarkerFelt.ttf'),
+}
+
 body {
   margin: 0;
   padding: 0;

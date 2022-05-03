@@ -2,45 +2,18 @@
   <div class="home-header">
     <div class="header-main">
       <div class="header-logo">ROMOVERSE</div>
-      <nav class="header-nav">
-        <div
-          class="nav-item"
-          :class="{active: page === 0}"
-          @click="moveTo(0)"
-          @keypress="moveTo(0)">ROMOVERSE</div>
-        <div
-          class="nav-item"
-          :class="{active: page === 1}"
-          @click="moveTo(1)"
-          @keypress="moveTo(1)">CEMETERY</div>
-        <div
-          class="nav-item"
-          :class="{active: page === 2}"
-          @click="moveTo(2)"
-          @keypress="moveTo(2)">ROMOER</div>
-        <div
-          class="nav-item"
-          :class="{active: page === 3}"
-          @click="moveTo(3)"
-          @keypress="moveTo(3)">ROADMAP</div>
-        <div
-          class="nav-item"
-          :class="{active: page === 4}"
-          @click="moveTo(4)"
-          @keypress="moveTo(4)">TEAM</div>
         <div class="connect-wallet">
-          <div v-if="address" class="connect-address">{{address}}
-            <div class="disconnect-btn" @click="disconnect" @keypress="disconnect"></div>
-          </div>
-          <button
-            v-else
-            class="connect-btn"
-            @click="handleClick"
-            :disabled="loading">
-            {{ loading? 'Connecting...' : 'Connect Wallet'}}
-          </button>
+        <div v-if="address" class="connect-address">{{address}}
+          <div class="disconnect-btn" @click="disconnect" @keypress="disconnect"></div>
         </div>
-      </nav>
+        <button
+          v-else
+          class="connect-btn"
+          @click="handleClick"
+          :disabled="loading">
+          {{ loading? 'Connecting...' : 'CONNECT WALLET'}}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -114,12 +87,12 @@ export default {
 
 <style lang="scss">
 .home-header {
-  height: 80px;
+  height: 48px;
   display: flex;
   position: fixed;
   top: 0;
   width: 100vw;
-  background-color: #1C0D27;
+  background-color: #000;
   padding: 0 10vw;
   display: flex;
   box-sizing: border-box;
@@ -149,17 +122,22 @@ export default {
       margin-left: 20px;
       .connect-address,
       .connect-btn {
-        padding: 0 14px;
-        height: 36px;
-        border: none;
-        border-radius: 18px;
+        width: 110px;
+        border-radius: 8px;
         background-color: #fff;
-        color: #333;
         cursor: pointer;
+        height: 26px;
+        border: 1px solid #000000;
+        font-family: MarkerFelt-Wide;
+        font-size: 12px;
+        color: #E0F100;
+        letter-spacing: 0.16px;
+        font-weight: 700;
+        text-shadow: 0 0 2px #000;
       }
 
       .connect-address {
-        line-height: 36px;
+        line-height: 26px;
         padding-right: 10px;
         display: flex;
         justify-content: center;

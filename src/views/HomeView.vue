@@ -26,6 +26,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home {
-  // padding-top: 80px;
+  background-color: #270242;
+  min-height: 100vh;
+  padding-top: 48px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
