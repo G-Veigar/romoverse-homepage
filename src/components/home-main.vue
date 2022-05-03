@@ -1,6 +1,10 @@
 <template>
   <div class="home-main">
-    <div class="left-part"></div>
+    <div class="left-part">
+      <img class="avator-img" src="../assets/1.gif" alt="avator1" />
+      <img class="avator-img" src="../assets/2.gif" alt="avator1" />
+      <img class="avator-img" src="../assets/3.gif" alt="avator1" />
+    </div>
     <div class="main-cotent">
       <div class="main-title">MINT YOUR OWN ROMO</div>
       <div class="main-desc">“we all going to die, come watch tv”</div>
@@ -22,13 +26,17 @@
         </div>
       </div>
       <div class="mint-input">
-        <div class="mint-btn remove-btn">-</div>
-        <div class="mint-num">0</div>
-        <div class="mint-btn add-btn">+</div>
+        <button class="mint-btn remove-btn" @click="mintRemove">-</button>
+        <div class="mint-num">{{mintNum}}</div>
+        <button class="mint-btn add-btn" @click="mintAdd">+</button>
       </div>
       <button class="mint-main-btn">MINT</button>
     </div>
-    <div class="right-part"></div>
+    <div class="right-part">
+      <img class="avator-img" src="../assets/4.gif" alt="avator1" />
+      <img class="avator-img" src="../assets/5.gif" alt="avator1" />
+      <img class="avator-img" src="../assets/6.gif" alt="avator1" />
+    </div>
   </div>
 </template>
 
@@ -45,11 +53,22 @@ export default {
       fullPageIndex: 0,
       fullpage: null,
       activeAvatar: 4758,
+      mintNum: 0,
     };
   },
   methods: {
     randomAvatar() {
       this.activeAvatar = 4753 + Math.floor(Math.random() * (4772 - 4753));
+    },
+    mintRemove() {
+      if (this.mintNum > 0) {
+        this.mintNum -= 1;
+      }
+    },
+    mintAdd() {
+      if (this.mintNum < 2) {
+        this.mintNum += 1;
+      }
     },
   },
   watch: {
@@ -66,6 +85,17 @@ export default {
   align-items: center;
   flex: auto;
 }
+
+.left-part {
+}
+
+.avator-img {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 58px;
+  display: block;
+}
+
 .main-title {
   font-family: MarkerFelt;
   font-size: 25px;
@@ -78,6 +108,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 189px;
 }
 
 .main-desc {
@@ -145,6 +176,9 @@ export default {
   color: #FFFFFF;
   letter-spacing: 0;
   font-weight: 400;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .mint-num {
@@ -169,5 +203,6 @@ export default {
   letter-spacing: 0;
   font-weight: 400;
   text-shadow: 0 0 2px #000;
+  cursor: pointer;
 }
 </style>
