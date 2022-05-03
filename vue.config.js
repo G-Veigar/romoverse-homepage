@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
-  publicPath: '/romoverse-homepage/',
+  publicPath: '/',
   outputDir: 'docs',
   transpileDependencies: true,
   configureWebpack: (config) => {
