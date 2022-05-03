@@ -27,8 +27,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   background-color: #270242;
-  // background-image: url('../assets/bg.png');
-  // background-repeat: repeat;
+  background-image: url('../assets/mint-bg.png');
+  background-repeat: repeat;
   min-height: 100vh;
   padding-top: 48px;
   box-sizing: border-box;
