@@ -19,7 +19,7 @@
         </div>
         <div class="mint-price-count romo">
           <div class="label-unit">
-            <div class="label">mint-wrapper</div>
+            <div class="label">ROMO</div>
             <div class="unit">eth</div>
           </div>
           <div class="value">10500</div>
