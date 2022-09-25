@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: MintPage,
+    component: HomeView,
   },
   {
     path: '/about',

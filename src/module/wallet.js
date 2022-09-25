@@ -1,15 +1,15 @@
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import RinkebyContractABI from './abi/rinkeby2.json';
+import RinkebyContractABI from './abi/rinkeby.json';
 import MainnetContractABI from './abi/mainnet.json';
 
 // const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
 const CHAIN_ID = 0;
 const NETWORK = CHAIN_ID === '1' ? 'mainnet' : 'rinkeby';
 const contractABI = CHAIN_ID === '1' ? MainnetContractABI : RinkebyContractABI;
-// const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x2fEfAc504D506255257a7D11811E084F53a0F0b0';
-const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9894ba97787207aca0328ef12d1fae254aecd01b';
+const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x2fEfAc504D506255257a7D11811E084F53a0F0b0';
+// const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9894ba97787207aca0328ef12d1fae254aecd01b';
 const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
 
 const providerOptions = {
