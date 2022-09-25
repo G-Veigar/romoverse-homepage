@@ -49,9 +49,9 @@
 
       <!-- 连接钱包 -->
       <div class="connect-wallet">
-        <!-- <div v-if="address" class="connect-address">{{address}}
-          <div class="disconnect-btn" @click="disconnect" @keypress="disconnect"></div>
-        </div> -->
+        <div v-if="address" class="connect-address">{{address}}
+          <div class="disconnect-btn" @click="disconnect" @keypress="disconnect">X</div>
+        </div>
         <button v-if="address" class="mint-main-btn" @click="callMint">Mint</button>
         <button
           v-else
@@ -143,59 +143,32 @@ export default {
       set('fullAddress', '');
       this.address = '';
     },
-    callMint() {
-      this.mintResShow = true;
-      setTimeout(() => {
-        this.mintResShow = false;
-      }, 3000);
-      // if (this.minting) {
-      //   return;
-      // }
-      // this.minting = true;
-      // try {
-      //   const { signer, contract } = await connectWallet();
-      //   const contractWithSigner = contract.connect(signer);
-      //   const value = ethers.utils.parseEther(
-      //     // this.mintNum === 1 ? '0.01' : '0.02',
-      //     '0',
-      //   );
-      //   const tx = await contractWithSigner.mint(this.mintNum, {
-      //     value,
-      //   });
-      //   const response = await tx.wait();
-      //   showMessage({
-      //     type: 'success',
-      //     title: '铸造成功',
-      //     body: (
-      //         <div>
-      //           <a
-      //             href={`https://${ETHERSCAN_DOMAIN}/tx/${response.transactionHash}`}
-      //             target="_blank"
-      //             rel="noreferrer"
-      //           >
-      //             点击查看交易详情
-      //           </a>{' '}
-      //           或者到{' '}
-      //           <a
-      //             href="https://opensea.io/account"
-      //             target="_blank"
-      //             rel="noreferrer"
-      //           >
-      //             OpenSea 查看
-      //           </a>
-      //           。
-      //         </div>
-      //     ),
-      //   });
-      // } catch (err) {
-      //   showMessage({
-      //     type: 'error',
-      //     title: '铸造失败',
-      //     body: err.message,
-      //   });
-      // }
-      // props.onMinted && props.onMinted();
-      // setMinting(false);
+    async callMint() {
+      // this.mintResShow = true;
+      // setTimeout(() => {
+      //   this.mintResShow = false;
+      // }, 3000);
+      if (this.minting) {
+        return;
+      }
+      this.minting = true;
+      try {
+        const { signer, contract } = await connectWallet();
+        const contractWithSigner = contract.connect(signer);
+        const value = ethers.utils.parseEther(
+          // this.mintNum === 1 ? '0.01' : '0.02',
+          '0',
+        );
+        const tx = await contractWithSigner.mint(this.mintNum, {
+          value,
+        });
+        const response = await tx.wait();
+        alert('铸造成功');
+      } catch (err) {
+        alert('铸造失败');
+        console.log('铸造失败', err.message);
+      }
+      this.minting = false;
     },
   },
   watch: {
@@ -380,10 +353,13 @@ export default {
 }
 
 .connect-wallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  .connect-address,
+
   .mint-main-btn,
   .connect-btn {
     width: 200px;
@@ -408,6 +384,9 @@ export default {
   }
 
   .connect-address {
+    color: #B4FF9A;
+    font-family: Schwifty;
+    text-align: center;
     line-height: 26px;
     padding-right: 10px;
     display: flex;
@@ -416,15 +395,15 @@ export default {
   }
 
   .disconnect-btn {
-    background: url('../assets/close.png');
+    // background: url('../assets/close.png');
     width: 20px;
     height: 20px;
     background-size: 100% 100%;
     margin-left: 8px;
 
-    &:hover {
-      background-image: url('../assets/close-active.png');
-    }
+    // &:hover {
+    //   background-image: url('../assets/close-active.png');
+    // }
   }
 }
 

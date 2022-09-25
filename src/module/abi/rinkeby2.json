@@ -1,7 +1,7 @@
 {
     "_format": "hh-sol-artifact-1",
-    "contractName": "RomoVerse",
-    "sourceName": "contracts/RomoVerse.sol",
+    "contractName": "RomoVerse-Vaccine",
+    "sourceName": "contracts/RomoVerse-Vaccine.sol",
     "abi": [
 		{
 			"inputs": [
