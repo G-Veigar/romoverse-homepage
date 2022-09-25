@@ -10,7 +10,7 @@ const NETWORK = CHAIN_ID === '1' ? 'mainnet' : 'rinkeby';
 let contractABI = CHAIN_ID === '1' ? MainnetContractABI : RinkebyContractABI;
 // const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x2fEfAc504D506255257a7D11811E084F53a0F0b0';
 // let NEXT_PUBLIC_CONTRACT_ADDRESS = '0xfd178c17f2c879608d277000ed5d1d5008ea174c'; // 这次
-let NEXT_PUBLIC_CONTRACT_ADDRESS = '0x61c90cDc6b0F7fB2408F8b721042f328f6eC5d54'; // 花生
+let NEXT_PUBLIC_CONTRACT_ADDRESS = '0x4A650C25a2BE26BA28daa0C3146c9b7880108DbF'; // 花生
 const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
 
 console.log('contractABI', contractABI);
@@ -49,6 +49,7 @@ let contract;
 // eslint-disable-next-line import/prefer-default-export
 export async function connectWallet(config) {
   const { address, abi } = config;
+  console.log('connectWallet config', config);
   if (address) {
     NEXT_PUBLIC_CONTRACT_ADDRESS = address;
   }

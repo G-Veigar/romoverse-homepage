@@ -1,10 +1,10 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
-    <div class="mint-devtool">
+    <!-- <div class="mint-devtool">
       <label>address: <input type="text" v-model.trim="devConfig.address"></label>
       <label>abi: <textarea type="text" v-model.trim="devConfig.abi" /></label>
-    </div>
+    </div> -->
     <div class="shine-star star-1">
       <div class="star-text">+</div>
       <div class="bg-star"></div>
