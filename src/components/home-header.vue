@@ -1,19 +1,20 @@
 <template>
   <div class="home-header">
     <div class="header-main">
-      <div class="header-logo"><img src="https://static.wixstatic.com/media/0b4b20_6d3680eb91674490b61acd7681f5a90f~mv2.png/v1/fill/w_268,h_94,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/WechatIMG1902_edited.png" alt=""></div>
+      <div class="header-logo">
+        <img src="https://static.wixstatic.com/media/0b4b20_6d3680eb91674490b61acd7681f5a90f~mv2.png/v1/fill/w_268,h_94,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/WechatIMG1902_edited.png" alt=""></div>
         <div class="connect-wallet">
-        <div v-if="address" class="connect-address">{{address}}
-          <div class="disconnect-btn" @click="disconnect" @keypress="disconnect"></div>
+          <div v-if="address" class="connect-address">{{address}}
+            <div class="disconnect-btn" @click="disconnect" @keypress="disconnect"></div>
+          </div>
+          <button
+            v-else
+            class="connect-btn"
+            @click="handleClick"
+            :disabled="loading">
+            {{ loading? 'Connecting...' : 'CONNECT WALLET'}}
+          </button>
         </div>
-        <button
-          v-else
-          class="connect-btn"
-          @click="handleClick"
-          :disabled="loading">
-          {{ loading? 'Connecting...' : 'CONNECT WALLET'}}
-        </button>
-      </div>
     </div>
   </div>
 </template>

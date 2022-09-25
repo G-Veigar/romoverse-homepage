@@ -8,7 +8,12 @@
   src: url('./assets/font/MarkerFelt.ttf'),
 }
 
-body {
+@font-face {
+  font-family: Schwifty;
+  src: url('./assets/font/get_schwifty.ttf'),
+}
+
+html, body {
   margin: 0;
   padding: 0;
 }
