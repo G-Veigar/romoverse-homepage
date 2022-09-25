@@ -49,7 +49,7 @@ let contract;
 // eslint-disable-next-line import/prefer-default-export
 export async function connectWallet(config) {
   const { address, abi } = config;
-  console.log('connectWallet config', config);
+  console.log('connectWallet-config', config);
   if (address) {
     NEXT_PUBLIC_CONTRACT_ADDRESS = address;
   }
