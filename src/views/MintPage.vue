@@ -1,5 +1,10 @@
+<!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
+    <div class="mint-devtool">
+      <label>address: <input type="text" v-model.trim="devConfig.address"></label>
+      <label>abi: <textarea type="text" v-model.trim="devConfig.abi" /></label>
+    </div>
     <div class="shine-star star-1">
       <div class="star-text">+</div>
       <div class="bg-star"></div>
@@ -75,6 +80,10 @@ import 'animate.css';
 export default {
   data() {
     return {
+      devConfig: {
+        address: '',
+        abi: '',
+      },
       showLogoText: false,
       mintNum: 1,
       loading: false,
@@ -89,6 +98,19 @@ export default {
       minting: false,
       mintResShow: false,
     };
+  },
+  computed: {
+    devConfigData() {
+      return {
+        address: this.devConfig.address,
+        abi: this.devConfig.abi ? {
+          _format: 'hh-sol-artifact-1',
+          contractName: 'RomoVerse-Vaccine',
+          sourceName: 'contracts/RomoVerse-Vaccine.sol',
+          abi: JSON.parse(this.devConfig.abi),
+        } : null,
+      };
+    },
   },
   methods: {
     randomAvatar() {
@@ -107,7 +129,10 @@ export default {
     async handleClick() {
       this.loading = true;
       try {
-        const { provider, signer, web3Instance } = await connectWallet();
+        const { provider, signer, web3Instance } = await connectWallet({
+          address: this.devConfigData.address,
+          abi: this.devConfigData.abi,
+        });
         const address = await signer.getAddress();
         const ens = await provider.lookupAddress(address);
         this.address = ens || formatAddress(address);
@@ -144,10 +169,6 @@ export default {
       this.address = '';
     },
     async callMint() {
-      // this.mintResShow = true;
-      // setTimeout(() => {
-      //   this.mintResShow = false;
-      // }, 3000);
       if (this.minting) {
         return;
       }
@@ -163,7 +184,10 @@ export default {
           value,
         });
         const response = await tx.wait();
-        alert('铸造成功');
+        this.mintResShow = true;
+        setTimeout(() => {
+          this.mintResShow = false;
+        }, 3000);
       } catch (err) {
         alert('铸造失败');
         console.log('铸造失败', err.message);
@@ -222,6 +246,10 @@ export default {
   to {
     background-position: 350% 50%;
   }
+}
+.mint-devtool {
+  position: absolute;
+  top: 0;
 }
 .mint-page {
   background: url('../assets//繁星2.png') #000;
