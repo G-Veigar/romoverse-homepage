@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import RinkebyContractABI from './abi/rinkeby3.json';
+import RinkebyContractABI from './abi/rinkeby2.json';
 import MainnetContractABI from './abi/mainnet.json';
 
 // const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
@@ -9,9 +9,10 @@ const CHAIN_ID = 0;
 const NETWORK = CHAIN_ID === '1' ? 'mainnet' : 'rinkeby';
 const contractABI = CHAIN_ID === '1' ? MainnetContractABI : RinkebyContractABI;
 // const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x2fEfAc504D506255257a7D11811E084F53a0F0b0';
-// const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9894ba97787207aca0328ef12d1fae254aecd01b'; // 这次
-const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x61c90cDc6b0F7fB2408F8b721042f328f6eC5d54'; // 花生
-const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
+const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9894ba97787207aca0328ef12d1fae254aecd01b'; // 这次
+// const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x61c90cDc6b0F7fB2408F8b721042f328f6eC5d54'; // 花生
+// const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
+const NEXT_PUBLIC_INFURA_PROJECT_ID = '5bb6fc3dadc1497abb853395ab659313'; // 花生
 
 const providerOptions = {
   walletconnect: {
