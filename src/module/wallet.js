@@ -11,8 +11,16 @@ const contractABI = CHAIN_ID === '1' ? MainnetContractABI : RinkebyContractABI;
 // const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x2fEfAc504D506255257a7D11811E084F53a0F0b0';
 const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9894ba97787207aca0328ef12d1fae254aecd01b'; // 这次
 // const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x61c90cDc6b0F7fB2408F8b721042f328f6eC5d54'; // 花生
-// const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
-const NEXT_PUBLIC_INFURA_PROJECT_ID = '5bb6fc3dadc1497abb853395ab659313'; // 花生
+const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
+// const NEXT_PUBLIC_INFURA_PROJECT_ID = '5bb6fc3dadc1497abb853395ab659313'; // 花生
+
+// // TODO: delete
+// if (window.abi) {
+//   contractABI = window.abi;
+// }
+// if (window.address) {
+//   NEXT_PUBLIC_CONTRACT_ADDRESS = window.address;
+// }
 
 const providerOptions = {
   walletconnect: {
@@ -39,6 +47,8 @@ let contract;
 
 // eslint-disable-next-line import/prefer-default-export
 export async function connectWallet() {
+  console.log('address', NEXT_PUBLIC_CONTRACT_ADDRESS);
+  console.log('abi', contractABI.abi);
   if (!instance) {
     instance = await web3ModelInstance.connect();
     // https://docs.ethers.io/v5/api/providers/
