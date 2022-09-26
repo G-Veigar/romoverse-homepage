@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkromoverse_homepage"]=self["webpackChunkromoverse_homepage"]||[]).push([[443],{4335:function(e,n,r){r.r(n),r.d(n,{default:function(){return f}});var a=r(3396);const o={class:"about"},s=(0,a._)("h1",null,"This is an about page",-1),u=[s];function t(e,n){return(0,a.wg)(),(0,a.iD)("div",o,u)}var c=r(89);const i={},h=(0,c.Z)(i,[["render",t]]);var f=h}}]);
-//# sourceMappingURL=about.2f24f693.js.map
