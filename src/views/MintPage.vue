@@ -62,6 +62,7 @@
           :disabled="loading">
           {{ loading? 'Connecting...' : 'CONNECT WALLET'}}
         </button>
+        <div class="mint-tip">Maximum up to 5 vaccines 💉 for 1 wallet <span class="mint-fxx">motherfxxkers</span>!!!</div>
       </div>
     </main>
   </div>
@@ -461,5 +462,14 @@ export default {
   border-radius: 6px;
   box-shadow: 0px 0px 5px -1px #B4FF9A;
   font-family: Schwifty;
+}
+
+.mint-tip {
+  margin-top: 14px;
+  font-size: 14px;
+  font-family: monospace;
+  .mint-fxx {
+      text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+  }
 }
 </style>
