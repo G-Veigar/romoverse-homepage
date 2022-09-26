@@ -1,6 +1,7 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
+    <div class="mint-toast" v-if="showToast">Mint Successful!</div>
     <div class="shine-star star-1">
       <div class="star-text">+</div>
       <div class="bg-star"></div>
@@ -76,6 +77,7 @@ import 'animate.css';
 export default {
   data() {
     return {
+      showToast: false,
       showLogoText: false,
       mintNum: 1,
       loading: false,
@@ -153,7 +155,6 @@ export default {
         const { signer, contract } = await connectWallet();
         const contractWithSigner = contract.connect(signer);
         const value = ethers.utils.parseEther(
-          // this.mintNum === 1 ? '0.01' : '0.02',
           '0',
         );
         const tx = await contractWithSigner.mint(this.mintNum, {
@@ -163,10 +164,15 @@ export default {
         this.mintResShow = true;
         setTimeout(() => {
           this.mintResShow = false;
-        }, 3000);
+        }, 4000);
+        setTimeout(() => {
+          this.showToast = true;
+          setTimeout(() => {
+            this.showToast = false;
+          }, 3000);
+        }, 1500);
       } catch (err) {
-        alert('铸造失败');
-        console.log('铸造失败', err.message);
+        alert('Mint error');
       }
       this.minting = false;
     },
@@ -196,12 +202,6 @@ export default {
 }
 
 @keyframes starblink {
-  // from {
-  //   text-shadow: 0 0 1px #FFF, 0 0 1px #FFF, 0 0 1px #FFF, 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
-  // }
-  // to {
-  //   text-shadow: 0 0 2px #FFF, 0 0 2px #FFF, 0 0 2px #FFF, 0 0 4px #49ff18, 0 0 4px #49FF18, 0 0 4px #49FF18, 0 0 4px #49FF18, 0 0 4px #49ff18;
-  // }
   0% {
     font-size: 12px;
   }
@@ -228,7 +228,7 @@ export default {
   top: 0;
 }
 .mint-page {
-  background: url('../assets//繁星2.png') #000;
+  background: url('../assets/繁星2.png') #000;
   background-size: 1000px;
   background-position: 50% 50%;
   min-height: 100vh;
@@ -443,5 +443,23 @@ export default {
     background: url('../assets/star2.png');
     background-size: 100% 100%;
   }
+}
+
+.mint-toast {
+  position: fixed;
+  width: 200px;
+  height: 60px;
+  line-height: 60px;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  background: rgba(0,0,0,0.7);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+  font-size: 20px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px -1px #B4FF9A;
+  font-family: Schwifty;
 }
 </style>
