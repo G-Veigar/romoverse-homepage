@@ -555,6 +555,9 @@ export default {
     margin-left: 0 !important;
     margin-top: -10px;
   }
+  .ufo {
+    display: none;
+  }
 }
 
 @keyframes fly {
