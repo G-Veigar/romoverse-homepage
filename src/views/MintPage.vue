@@ -1,15 +1,29 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
+    <div class="ufo" :class="{flying: ufoFly}"></div>
     <div class="mint-toast" v-if="showToast">Mint Successful!</div>
-    <div class="shine-star star-1">
+    <div class="mint-toast fail" v-if="showFailToast">{{failText}}</div>
+    <div class="shine-star star-2">
       <div class="star-text">+</div>
       <div class="bg-star"></div>
     </div>
-    <!-- <div class="shine-star star-2">
+    <div class="shine-star star-3">
       <div class="star-text">+</div>
-      <div class="bg-star2"></div>
-    </div> -->
+      <div class="bg-star"></div>
+    </div>
+    <div class="shine-star star-4 small">
+      <div class="star-text">+</div>
+      <div class="bg-star"></div>
+    </div>
+    <div class="shine-star star-5 big">
+      <div class="star-text">+</div>
+      <div class="bg-star"></div>
+    </div>
+    <div class="shine-star star-6 small">
+      <div class="star-text">+</div>
+      <div class="bg-star"></div>
+    </div>
     <main>
       <!-- logo -->
       <div class="logo-text">
@@ -19,6 +33,10 @@
         >
           <div class="inner-text" v-show="showLogoText">RomoVerse</div>
         </Transition>
+        <div class="shine-star star-1">
+          <div class="star-text">+</div>
+          <div class="bg-star"></div>
+        </div>
       </div>
 
       <!-- content -->
@@ -35,7 +53,7 @@
             </Transition>
           </div>
         </div>
-        <div class="text">
+        <div class="content-text">
           <p>Geezzzz!</p>
           <p>Finally we will get vaccine 💉 from chrono rift Hmmmm but not sure whether it works tho......</p>
           <p class="shine-text">Anyway let’s try it out and save Mamo !!!</p>
@@ -78,7 +96,9 @@ import 'animate.css';
 export default {
   data() {
     return {
+      ufoFly: false,
       showToast: false,
+      showFailToast: false,
       showLogoText: false,
       mintNum: 1,
       loading: false,
@@ -92,6 +112,7 @@ export default {
       },
       minting: false,
       mintResShow: false,
+      failText: 'Mint Fail!',
     };
   },
   methods: {
@@ -173,7 +194,15 @@ export default {
           }, 3000);
         }, 1500);
       } catch (err) {
-        alert('Mint error');
+        if (err.message.includes('nums must less than')) {
+          this.failText = 'Mint Fail: Don\'t be too greedy...!';
+        } else {
+          this.failText = 'Ops! Mint Fail';
+        }
+        this.showFailToast = true;
+        setTimeout(() => {
+          this.showFailToast = false;
+        }, 3000);
       }
       this.minting = false;
     },
@@ -185,6 +214,9 @@ export default {
   },
   mounted() {
     this.showLogoText = true;
+    setTimeout(() => {
+      this.ufoFly = true;
+    }, 2000);
   },
 };
 </script>
@@ -224,15 +256,13 @@ export default {
     background-position: 350% 50%;
   }
 }
-.mint-devtool {
-  position: absolute;
-  top: 0;
-}
+
 .mint-page {
   background: url('../assets/繁星2.png') #000;
   background-size: 1000px;
   background-position: 50% 50%;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -254,6 +284,7 @@ export default {
     text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
     animation: textblink 4s linear infinite;
     margin-bottom: 30px;
+    position: relative;
   }
 
   .logo {
@@ -281,8 +312,8 @@ export default {
       }
       .portal {
         background-color: #fff;
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
         background: url("../assets/entry.gif");
         background-size: 100% 100%;
         display: flex;
@@ -294,7 +325,7 @@ export default {
         }
       }
     }
-    .text {
+    .content-text {
       max-width: 440px;
       margin-left: 60px;
       font-family: monospace;
@@ -424,13 +455,43 @@ export default {
     color: transparent;
     animation: starblink 1s linear infinite;
   }
+  &.small {
+    font-size: 10px;
+    .bg-star {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  &.big {
+    font-size: 14px;
+    .bg-star {
+      width: 28px;
+      height: 28px;
+    }
+  }
   &.star-1 {
-    left: 940px;
-    top: 170px;
+    right: -40px;
+    top: 50px;
   }
   &.star-2 {
     left: 40%;
-    top: 40px;
+    top: 5%;
+  }
+  &.star-3 {
+    right: 40%;
+    bottom: 10%;
+  }
+  &.star-4 {
+    left: 10%;
+    top: 45%;
+  }
+  &.star-5 {
+    right: 20%;
+    top: 60%;
+  }
+  &.star-6 {
+    right: 10%;
+    top: 10%;
   }
   .bg-star {
     width: 20px;
@@ -462,14 +523,61 @@ export default {
   border-radius: 6px;
   box-shadow: 0px 0px 5px -1px #B4FF9A;
   font-family: Schwifty;
+
+  &.fail {
+      text-shadow: 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323;
+      width: 280px;
+      font-size: 18px;
+  }
 }
 
 .mint-tip {
   margin-top: 14px;
   font-size: 14px;
   font-family: monospace;
+  text-align: center;
   .mint-fxx {
       text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo-text {
+    font-size: 60px !important;
+    margin-bottom: 10px !important;
+  }
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .content-text {
+    font-size: 14px !important;
+    margin-left: 0 !important;
+    margin-top: -10px;
+  }
+}
+
+@keyframes fly {
+  from {
+    right: -100px;
+  }
+  to {
+    right: 100%;
+  }
+}
+.ufo {
+  background: url('../assets/ufo.png');
+  background-size: 100% 100%;
+  width: 70px;
+  height: 60px;
+  position: fixed;
+  top: 70px;
+  z-index: 10;
+  transition: right 10s;
+  right: -100px;
+
+  &.flying {
+    animation: fly 10s linear;
   }
 }
 </style>
