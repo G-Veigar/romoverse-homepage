@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+// import HomeView from '../views/HomeView.vue';
 import MintPage from '../views/MintPage.vue';
-import MintPageDev from '../views/MintPageDev.vue';
+// import MintPageDev from '../views/MintPageDev.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,11 +9,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: MintPage,
   },
-  {
-    path: '/dev',
-    name: 'dev',
-    component: MintPageDev,
-  },
+  // {
+  //   path: '/dev',
+  //   name: 'dev',
+  //   component: MintPageDev,
+  // },
   // {
   //   path: '/mint',
   //   name: 'mint',
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
