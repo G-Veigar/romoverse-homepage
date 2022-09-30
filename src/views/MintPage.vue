@@ -1,6 +1,9 @@
+<!-- eslint-disable vuejs-accessibility/click-events-have-key-events -->
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
+
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
+    <div class="opensea-btn" @click="goOpensea"></div>
     <div class="ufo" :class="{flying: ufoFly}"></div>
     <div class="mint-toast" v-if="showToast">Mint Successful!</div>
     <div class="mint-toast fail" v-if="showFailToast">{{failText}}</div>
@@ -128,6 +131,9 @@ export default {
       if (this.mintNum < 5) {
         this.mintNum += 1;
       }
+    },
+    goOpensea() {
+      window.open('https://opensea.io/collection/romoverse-vaccine');
     },
     async handleClick() {
       this.loading = true;
@@ -582,5 +588,16 @@ export default {
   &.flying {
     animation: fly 10s linear;
   }
+}
+
+.opensea-btn {
+  width: 30px;
+  height: 30px;
+  background: url('../assets/link.png');
+  background-size: 100% 100%;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
 }
 </style>
