@@ -106,6 +106,7 @@ export default {
       mintNum: 1,
       loading: false,
       address: '',
+      fullAddress: '',
       bgStyle: {
         backgroundPosition: '50% 50%',
       },
@@ -142,6 +143,7 @@ export default {
         const address = await signer.getAddress();
         const ens = await provider.lookupAddress(address);
         this.address = ens || formatAddress(address);
+        this.fullAddress = address;
         set('address', ens || formatAddress(address));
         set('fullAddress', address);
         web3Instance.on('accountsChanged', async (accounts) => {
@@ -175,6 +177,37 @@ export default {
       this.address = '';
     },
     async callMint() {
+      try {
+        const { signer, contract, mergeContract } = await connectWallet();
+        const contractWithSigner = contract.connect(signer);
+        const mergeContractWithSigner = mergeContract.connect(signer);
+        const value = ethers.utils.parseEther(
+          '0',
+        );
+        // const tx = await contractWithSigner.approve('0x9ffdd2917d457211ab88d8d99e8fa9c5663b0e04', 'adfdf', {
+        //   value,
+        // });
+        const totalSupply = await contractWithSigner.totalSupply({
+          value,
+        });
+        const balanceOf = await contractWithSigner.balanceOf(this.fullAddress, {
+          value,
+        });
+        const id = await contractWithSigner.tokenByIndex(3);
+
+        const uri = await contractWithSigner.tokenURI(id);
+        console.log(uri);
+
+        const uri2 = await mergeContractWithSigner.tokenURI(0);
+        console.log(uri2);
+
+        // await contractWithSigner.setApprovalForAll('0x17982614a27baf2890f41275e3212e00c0b5353e', true);
+
+        await mergeContractWithSigner.merge(1, 2, 3);
+      } catch (err) {
+        console.log(err);
+      }
+
       if (this.minting) {
         return;
       }

@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
+  // productionSourceMap:true,
   publicPath: '/',
   outputDir: 'docs',
   transpileDependencies: true,

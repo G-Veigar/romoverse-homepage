@@ -1,14 +1,17 @@
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-// import RinkebyContractABI from './abi/dev.json';
+import RinkebyContractABI from './abi/dev.json';
+import RinkebyContractABI2 from './abi/dev2.json';
+
 import MainnetContractABI from './abi/mainnet2.json';
 
 // const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
 // const CHAIN_ID = 1;
 // const NETWORK = CHAIN_ID === '1' ? 'mainnet' : 'rinkeby';
-const contractABI = MainnetContractABI;
-const NEXT_PUBLIC_CONTRACT_ADDRESS = '0xa18b096dc95ac878c77b08661a8b59a53ef6f8e7';
+const contractABI = RinkebyContractABI;
+const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9ffdd2917d457211ab88d8d99e8fa9c5663b0e04';
+const NEXT_PUBLIC_CONTRACT_MERGE_ADDRESS = '0x17982614a27baf2890f41275e3212e00c0b5353e';
 const NEXT_PUBLIC_INFURA_PROJECT_ID = 'b7fcab074360449dac3869b2d62a0154';
 
 const providerOptions = {
@@ -34,6 +37,7 @@ let provider;
 let signer;
 let instance;
 let contract;
+let mergeContract;
 
 // eslint-disable-next-line import/prefer-default-export
 export async function connectWallet() {
@@ -49,10 +53,17 @@ export async function connectWallet() {
       contractABI.abi,
       provider,
     );
+
+    mergeContract = new ethers.Contract(
+      NEXT_PUBLIC_CONTRACT_MERGE_ADDRESS,
+      // 大哥，注意 ABI 的大小写 👻
+      RinkebyContractABI2.abi,
+      provider,
+    );
   }
 
   return {
-    provider, signer, web3Instance: instance, contract,
+    provider, signer, web3Instance: instance, contract, mergeContract,
   };
 }
 
