@@ -86,6 +86,7 @@
           <div class="text-desc">
             <p>WTF! In the Multiverse E-628, there is a supervillain Elon Mask. Momo is controlled by his AI Mask and becomes Mamo. The Mask will gradually wipe Momo's consciousness, and eventually, make Momo lose his free will and become a Swarm.</p>
             <p>Finally, we got a chance to take off the mask from the evil Elon Musk's control! If you burn 🔥 two mamos 👹 and one vaccine 🧪, you can get a momo 👑. After connecting your wallet, please choose two mamos and one vaccine to burn and get a momo.</p>
+            <p>Attention: You need to authorize the Mamo and Vaccine Contract separately to complete the merge.</p>
           </div>
         </div>
 <!--        <div class="tooltip">-->
@@ -105,7 +106,9 @@
 <!--          <img v-if="address && !loading" :src="this.vaccine[0].uri" alt="mask1">-->
 <!--        </div>-->
 
-        <button v-if="address && !loading" class="mint-main-btn" @click="callMerge">Merge</button>
+        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMerge" :disabled="minting">
+          {{minting ? 'merging' : 'merge'}}
+        </button>
         <button
           v-else
           class="connect-btn"
@@ -765,6 +768,11 @@ export default {
       box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
     }
   }
+  .mint-main-btn-active {
+    background: #B4FF9A;
+    color: #fff;
+    box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+  }
 
   .connect-address {
     color: #B4FF9A;
@@ -923,10 +931,13 @@ export default {
     .text-desc{
       display: flex;
       flex-direction: column;
-      width: 400px;
+      width: 520px;
       font-family: monospace;
 
       margin-left: 160px;
+      p:last-child{
+        color: #B4FF9A;
+      }
     }
   }
 }
