@@ -254,12 +254,12 @@ export default {
       // 2. 读2份mask，按照maskI的顺序
       const maskBalance = await maskCS.balanceOf(this.fullAddress);
       if (maskBalance < 2) {
-        this.failText = 'There isn\'t enough Mamo or Vaccine to Merge!';
+        this.failText = 'There isn\'t enough Mamo to Merge!';
 
         this.showFailToast = true;
         setTimeout(() => {
           this.showFailToast = false;
-        }, 3000);
+        }, 20000);
       }
 
       const nftPromises = [];
@@ -275,12 +275,12 @@ export default {
       }
 
       if (this.maskList.length < 2) {
-        this.failText = 'There isn\'t enough Mamo or Vaccine to Merge!';
+        this.failText = 'There isn\'t enough Mamo to Merge!';
 
         this.showFailToast = true;
         setTimeout(() => {
           this.showFailToast = false;
-        }, 5000);
+        }, 20000);
       } else {
         await this.readMaskUri();
       }
@@ -357,12 +357,12 @@ export default {
       // 1. 读1份vaccine
       const vaccineBalance = await vaccineCS.balanceOf(this.fullAddress);
       if (vaccineBalance < 1) {
-        this.failText = 'There isn\'t enough Mamo or Vaccine to Merge!';
+        this.failText = 'There isn\'t enough Vaccine to Merge!';
 
         this.showFailToast = true;
         setTimeout(() => {
           this.showFailToast = false;
-        }, 3000);
+        }, 20000);
       }
       this.vaccine[0] = {
       };
@@ -378,6 +378,11 @@ export default {
     },
 
     async callMerge() {
+      if (this.minting) {
+        return;
+      }
+      this.minting = true;
+
       try {
         const {
           signer, MaskContract, VaccineContract, MergeContract,
@@ -389,7 +394,7 @@ export default {
         const tx1 = maskCS.approve(MergeAddress, this.mask[0].tokenID);
         const tx2 = maskCS.approve(MergeAddress, this.mask[1].tokenID);
         await Promise.all([tx1, tx2]);
-        const tx3 = await maskCS.approve(MergeAddress, this.vaccine[0].tokenID);
+        const tx3 = await vaccineCS.approve(MergeAddress, this.vaccine[0].tokenID);
         await tx3.wait();
 
         const tx = await MergeCS.merge(this.mask[0].tokenID, this.mask[1].tokenID, this.vaccine[0].tokenID);
@@ -397,7 +402,7 @@ export default {
         this.mintResShow = true;
         setTimeout(() => {
           this.mintResShow = false;
-        }, 4000);
+        }, 10000);
         setTimeout(() => {
           this.showToast = true;
           setTimeout(() => {
@@ -413,6 +418,8 @@ export default {
         }, 3000);
         console.log(err);
       }
+
+      this.minting = false;
     },
 
     async callMint() {
@@ -917,7 +924,7 @@ export default {
       display: flex;
       flex-direction: column;
       width: 400px;
-      font-family: "Courier New";
+      font-family: monospace;
 
       margin-left: 160px;
     }
