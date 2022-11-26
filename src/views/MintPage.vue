@@ -107,7 +107,7 @@
 <!--        </div>-->
 
         <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMerge" :disabled="minting">
-          {{minting ? 'merging' : 'merge'}}
+          {{minting ? 'merging . . .' : 'merge'}}
         </button>
         <button
           v-else
@@ -936,6 +936,7 @@ export default {
 
       margin-left: 160px;
       p:last-child{
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 30px #49ff18, 0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
         color: #B4FF9A;
       }
     }
