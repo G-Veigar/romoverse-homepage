@@ -20,7 +20,7 @@ const MergeAddressDev = '0xdf25155c96e677b80add590137b96f9c30915f3e';
 
 const MaskAddress = '0x9Fbf34a4062a3D6CdBFa8c3D217a638a40F91f88';
 const VaccineAddress = '0xa18b096dc95ac878c77b08661a8b59a53ef6f8e7';
-const MergeAddress = '0x51c2985b5e52729f786abe6005f0df1c8f04cd42';
+const MergeAddress = '0xebbeab5d35f317681fbe0ffa8d87c2b87b2bb640';
 
 const NEXT_PUBLIC_CONTRACT_ADDRESS = '0x9ffdd2917d457211ab88d8d99e8fa9c5663b0e04';
 const NEXT_PUBLIC_CONTRACT_MERGE_ADDRESS = '0x17982614a27baf2890f41275e3212e00c0b5353e';
