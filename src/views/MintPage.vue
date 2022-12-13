@@ -178,7 +178,7 @@ export default {
       }
     },
     goOpensea() {
-      window.open('https://opensea.io/collection/romoverse-vaccine');
+      window.open('https://opensea.io/collection/momo-romoverse');
     },
     async handleClick() {
       for (let i = 0; i < listData.length; i += 1) {
