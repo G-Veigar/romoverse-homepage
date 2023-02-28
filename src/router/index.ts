@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 // import HomeView from '../views/HomeView.vue';
-import MintPage from '../views/MintPage.vue';
+// import MintPage from '../views/MintPage.vue';
+import MintPageWuJing from '../views/MintPageWuJing.vue';
+
 // import MintPageDev from '../views/MintPageDev.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: MintPage,
+    component: MintPageWuJing,
   },
   // {
   //   path: '/dev',
