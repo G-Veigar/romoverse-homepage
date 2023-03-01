@@ -3,7 +3,7 @@
 
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
-    <div class="opensea-btn" @click="goOpensea"></div>
+    <!-- <div class="opensea-btn" @click="goOpensea"></div> -->
     <!-- <div class="ufo" :class="{flying: ufoFly}"></div> -->
     <div class="mint-toast" v-if="showToast">Merge Successful!</div>
     <div class="mint-toast fail" v-if="showFailToast">{{failText}}</div>
@@ -92,11 +92,8 @@
 
         <div class="mint-tip">1,400 <span class="nft-name">IAMCHINESE</span> NFT <br> MINT TO BECOME <span class="name-bold">CHINESE</span></div>
 
-        <!-- <div v-if="address" class="connect-address">{{address}}
-          <div class="disconnect-btn" @click="disconnect" @keypress="disconnect">X</div>
-        </div> -->
-        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMerge" :disabled="minting">
-          {{minting ? 'merging . . .' : 'MINT'}}
+        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMerge" :disabled="true">
+          {{minting ? 'merging . . .' : 'cummimg soon'}}
         </button>
         <button
           v-else
@@ -114,16 +111,21 @@
       v-model:danmus="danmus"
       :channels="3"
       :debounce = "1000"
+      :speeds="90"
       :randomChannel="true"
       useSlot
       loop
       style="height:240px; width:100%;">
       <template v-slot:dm="{ danmu }">
-        <div>{{ danmu.zh }}</div>
-        <div>{{ danmu.en }}</div>
+        <div class="danmu-text">{{ danmu.zh }}</div>
+        <div class="danmu-text">{{ danmu.en }}</div>
       </template>
     </vue-danmaku>
     <img class="wujing" src="../assets/wujing.gif" alt="">
+
+    <div v-if="address" class="connect-address">{{address}}
+      <img src="../assets/wj-close.png" alt="" class="disconnect-btn" @click="disconnect" @keypress="disconnect" />
+    </div>
   </div>
 </template>
 
@@ -149,8 +151,8 @@ export default {
       showLogoText: false,
       mintNum: 1,
       loading: false,
-      address: '123',
-      fullAddress: '123',
+      address: '',
+      fullAddress: '',
       listMap: {},
       maskList: [],
       nfts: [],
@@ -543,13 +545,13 @@ export default {
 <style lang="scss" scoped>
 @keyframes textblink {
   0% {
-      text-shadow: 0 0 3px #FFF, 0 0 5px #FFF, 0 0 5px #FFF, 0 0 10px #49ff18, 0 0 10px #49FF18, 0 0 12px #49FF18, 0 0 16px #49FF18, 0 0 20px #49ff18;
+      text-shadow: 0 0 3px #FFF, 0 0 5px #FFF, 0 0 5px #FFF, 0 0 10px #f12323, 0 0 10px #f12323, 0 0 12px #f12323, 0 0 16px #f12323, 0 0 20px #f12323;
   }
   50% {
-      text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 50px #49FF18, 0 0 60px #49ff18;
+      text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 50px #f12323, 0 0 60px #f12323;
   }
   100% {
-      text-shadow: 0 0 3px #FFF, 0 0 5px #FFF, 0 0 5px #FFF, 0 0 10px #49ff18, 0 0 10px #49FF18, 0 0 12px #49FF18, 0 0 16px #49FF18, 0 0 20px #49ff18;
+      text-shadow: 0 0 3px #FFF, 0 0 5px #FFF, 0 0 5px #FFF, 0 0 10px #f12323, 0 0 10px #f12323, 0 0 12px #f12323, 0 0 16px #f12323, 0 0 20px #f12323;
   }
 }
 
@@ -577,7 +579,7 @@ export default {
 }
 
 .mint-page {
-  background: url('../assets/wujing-bg.png') #000;
+  background: url('../assets/wujing-bg2.png') #000;
   background-size: cover;
   background-position: center center;
   height: 100vh;
@@ -600,7 +602,7 @@ export default {
     font-family: Schwifty;
     font-size: 80px;
     color: #1DF9E6;
-    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
     animation: textblink 4s linear infinite;
     margin-bottom: 30px;
     position: relative;
@@ -621,7 +623,7 @@ export default {
       .portal-bg {
         width: 200px;
         height: 200px;
-        box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+        box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -653,7 +655,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       .shine-text {
-        text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+        text-shadow: 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323;
       }
     }
   }
@@ -676,7 +678,7 @@ export default {
   border: none;
 
   &:hover {
-    text-shadow: 0 0 2px #FFF, 0 0 4px #FFF, 0 0 4px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+    text-shadow: 0 0 2px #FFF, 0 0 4px #FFF, 0 0 4px #FFF, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
   }
 }
 
@@ -797,46 +799,34 @@ export default {
     // border: 3px solid #B4FF9A;
     background-color: #f12323;
     transition: all 0.4s;
-    // &:hover {
-    //   background: #B4FF9A;
-    //   color: #fff;
-    //   box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
-    // }
+    &:hover {
+      color: #fff;
+      box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
+    }
   }
   .mint-main-btn-active {
     background: #B4FF9A;
     color: #fff;
-    box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+    box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
   }
 
-  .connect-address {
-    color: #B4FF9A;
-    // font-family: Schwifty;
-    text-align: center;
-    line-height: 26px;
-    padding-right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+}
 
-  .disconnect-btn {
+.disconnect-btn {
     // background: url('../assets/close.png');
-    width: 20px;
-    height: 20px;
-    background-size: 100% 100%;
-    margin-left: 8px;
-
-    // &:hover {
-    //   background-image: url('../assets/close-active.png');
-    // }
-  }
+  width: 16px;
+  height: 16px;
+  background-size: 100% 100%;
+  margin-left: 6px;
+  // &:hover {
+  //   background-image: url('../assets/close-active.png');
+  // }
 }
 
 .shine-star {
   position: absolute;
   .star-text {
-    text-shadow: 0 0 2px #FFF, 0 0 2px #FFF, 0 0 2px #FFF, 0 0 4px #49ff18, 0 0 4px #49FF18, 0 0 4px #49FF18, 0 0 4px #49FF18, 0 0 4px #49ff18;
+    text-shadow: 0 0 2px #FFF, 0 0 2px #FFF, 0 0 2px #FFF, 0 0 4px #f12323, 0 0 4px #f12323, 0 0 4px #f12323, 0 0 4px #f12323, 0 0 4px #f12323;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -908,7 +898,7 @@ export default {
   background: rgba(0,0,0,0.7);
   transform: translate(-50%, -50%);
   text-align: center;
-  text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+  text-shadow: 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323;
   font-size: 20px;
   border-radius: 6px;
   box-shadow: 0px 0px 5px -1px #B4FF9A;
@@ -930,7 +920,7 @@ export default {
   line-height: 40px;
   margin-bottom: 60px;
   .mint-fxx {
-      text-shadow: 0 0 2px #49ff18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49FF18, 0 0 2px #49ff18;
+      text-shadow: 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323, 0 0 2px #f12323;
   }
 }
 
@@ -974,7 +964,7 @@ export default {
 
       margin-left: 160px;
       p:last-child{
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 30px #49ff18, 0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 30px #f12323, 0 0 30px #f12323, 0 0 40px #f12323, 0 0 55px #f12323, 0 0 75px #f12323;
         color: #B4FF9A;
       }
     }
@@ -1035,5 +1025,24 @@ export default {
 
 .name-bold {
   color: #f12323;
+}
+
+.danmu-text {
+  font-weight: bold;
+}
+
+.connect-address {
+  position: fixed;
+  right: 10px;
+  top: 6px;
+  color: #f12323;
+  // font-family: Schwifty;
+  font-weight: bold;
+  text-align: center;
+  line-height: 26px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
