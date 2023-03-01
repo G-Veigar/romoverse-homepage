@@ -579,7 +579,7 @@ export default {
 }
 
 .mint-page {
-  background: url('../assets/wujing-bg2.png') #000;
+  background: url('../assets/wujing-bg.png') #000;
   background-size: cover;
   background-position: center center;
   height: 100vh;
