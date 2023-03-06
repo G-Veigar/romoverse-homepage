@@ -92,8 +92,8 @@
 
         <div class="mint-tip">1,400 <span class="nft-name">IAMCHINESE</span> NFT <br> MINT TO BECOME <span class="name-bold">CHINESE</span></div>
 
-        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMerge" :disabled="true">
-          {{minting ? 'merging . . .' : 'cummimg soon'}}
+        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMint" :disabled="true">
+          {{minting ? 'minting . . .' : 'mint'}}
         </button>
         <button
           v-else
@@ -433,49 +433,49 @@ export default {
     },
 
     async callMerge() {
-      alert('Comming Soon');
-      // if (this.minting) {
-      //   return;
-      // }
-      // this.minting = true;
+      // alert('Comming Soon');
+      if (this.minting) {
+        return;
+      }
+      this.minting = true;
 
-      // try {
-      //   const {
-      //     signer, MaskContract, VaccineContract, MergeContract,
-      //   } = await connectWallet();
-      //   const maskCS = MaskContract.connect(signer);
-      //   const vaccineCS = VaccineContract.connect(signer);
-      //   const MergeCS = MergeContract.connect(signer);
+      try {
+        const {
+          signer, MaskContract, VaccineContract, MergeContract,
+        } = await connectWallet();
+        const maskCS = MaskContract.connect(signer);
+        const vaccineCS = VaccineContract.connect(signer);
+        const MergeCS = MergeContract.connect(signer);
 
-      //   const tx1 = maskCS.approve(MergeAddress, this.mask[0].tokenID);
-      //   const tx2 = maskCS.approve(MergeAddress, this.mask[1].tokenID);
-      //   await Promise.all([tx1, tx2]);
-      //   const tx3 = await vaccineCS.approve(MergeAddress, this.vaccine[0].tokenID);
-      //   await tx3.wait();
+        const tx1 = maskCS.approve(MergeAddress, this.mask[0].tokenID);
+        const tx2 = maskCS.approve(MergeAddress, this.mask[1].tokenID);
+        await Promise.all([tx1, tx2]);
+        const tx3 = await vaccineCS.approve(MergeAddress, this.vaccine[0].tokenID);
+        await tx3.wait();
 
-      //   const tx = await MergeCS.merge(this.mask[0].tokenID, this.mask[1].tokenID, this.vaccine[0].tokenID);
-      //   const response = await tx.wait();
-      //   this.mintResShow = true;
-      //   setTimeout(() => {
-      //     this.mintResShow = false;
-      //   }, 10000);
-      //   setTimeout(() => {
-      //     this.showToast = true;
-      //     setTimeout(() => {
-      //       this.showToast = false;
-      //     }, 3000);
-      //   }, 1500);
-      // } catch (err) {
-      //   this.failText = 'Ops! Merge Fail';
+        const tx = await MergeCS.merge(this.mask[0].tokenID, this.mask[1].tokenID, this.vaccine[0].tokenID);
+        const response = await tx.wait();
+        this.mintResShow = true;
+        setTimeout(() => {
+          this.mintResShow = false;
+        }, 10000);
+        setTimeout(() => {
+          this.showToast = true;
+          setTimeout(() => {
+            this.showToast = false;
+          }, 3000);
+        }, 1500);
+      } catch (err) {
+        this.failText = 'Ops! Merge Fail';
 
-      //   this.showFailToast = true;
-      //   setTimeout(() => {
-      //     this.showFailToast = false;
-      //   }, 3000);
-      //   console.log(err);
-      // }
+        this.showFailToast = true;
+        setTimeout(() => {
+          this.showFailToast = false;
+        }, 3000);
+        console.log(err);
+      }
 
-      // this.minting = false;
+      this.minting = false;
     },
 
     async callMint() {
@@ -484,7 +484,7 @@ export default {
         const contractWithSigner = VaccineContract.connect(signer);
         const mergeContractWithSigner = MergeContract.connect(signer);
         const value = ethers.utils.parseEther(
-          '0',
+          '0.04',
         );
       } catch (err) {
         console.log(err);
@@ -527,6 +527,7 @@ export default {
       }
       this.minting = false;
     },
+
   },
   watch: {
     page(newVal) {
