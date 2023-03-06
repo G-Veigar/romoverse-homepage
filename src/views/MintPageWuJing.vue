@@ -3,98 +3,18 @@
 
 <template>
   <div class="mint-page" @mousemove="handleMouseMove">
-    <!-- <div class="opensea-btn" @click="goOpensea"></div> -->
-    <!-- <div class="ufo" :class="{flying: ufoFly}"></div> -->
     <div class="mint-toast" v-if="showToast">Merge Successful!</div>
     <div class="mint-toast fail" v-if="showFailToast">{{failText}}</div>
-    <!-- <div class="shine-star star-2">
-      <div class="star-text">+</div>
-      <div class="bg-star"></div>
-    </div>
-    <div class="shine-star star-3">
-      <div class="star-text">+</div>
-      <div class="bg-star"></div>
-    </div>
-    <div class="shine-star star-4 small">
-      <div class="star-text">+</div>
-      <div class="bg-star"></div>
-    </div>
-    <div class="shine-star star-5 big">
-      <div class="star-text">+</div>
-      <div class="bg-star"></div>
-    </div>
-    <div class="shine-star star-6 small">
-      <div class="star-text">+</div>
-      <div class="bg-star"></div>
-    </div> -->
     <main>
-      <!-- logo -->
-      <div class="logo-text">
-        <!-- <Transition
-          name="custom-classes"
-          enter-active-class="animate__animated animate__rubberBand"
-        >
-          <div class="inner-text" v-show="showLogoText">RomoVerse</div>
-        </Transition> -->
-        <div class="shine-star star-1">
-          <div class="star-text">+</div>
-          <div class="bg-star"></div>
-        </div>
-      </div>
-
-      <!-- content -->
-      <div class="content">
-        <div class="portal-wrapper">
-          <!-- <div class="portal-bg"></div> -->
-          <div class="portal">
-            <Transition
-              name="custom-classes"
-              enter-active-class="animate__animated animate__zoomIn"
-              leave-active-class="animate__animated animate__zoomOutDown"
-            >
-              <img class="vaccine-gun" v-show="mintResShow" src="../assets/res.png" alt="mint-res"/>
-            </Transition>
-          </div>
-        </div>
-<!--        <div class="content-text">-->
-<!--          <p>Geezzzz!</p>-->
-<!--          <p>Finally we will get vaccine 💉 from chrono rift Hmmmm but not sure whether it works tho......</p>-->
-<!--          <p class="shine-text">Anyway let’s try it out and save Mamo !!!</p>-->
-<!--        </div>-->
-      </div>
-
-      <!-- mint数量 -->
-<!--      <div class="mint-input">-->
-<!--        <button class="mint-btn remove-btn" @click="mintRemove">-</button>-->
-<!--        <div class="mint-num">{{mintNum}}</div>-->
-<!--        <button class="mint-btn add-btn" @click="mintAdd">+</button>-->
-<!--      </div>-->
 
       <!-- 连接钱包 -->
       <div class="connect-wallet">
-        <!-- <div class="list-main" v-if="address && !loading">
-          <div class="list-space">
-            <div class="mask-list">
-              <img :src="this.mask[0].uri" alt="mask1">
-              <img :src="this.mask[1].uri" alt="mask2">
-            </div>
-            <button  class="mint-main-btn" @click="handleRefresh">Another Group</button>
-            <div class="vaccine-list">
-              <img src="../assets/vaccine.gif" alt="mask3">
-            </div>
-          </div>
-          <div class="text-desc">
-            <p>WTF! In the Multiverse E-628, there is a supervillain Elon Mask. Momo is controlled by his AI Mask and becomes Mamo. The Mask will gradually wipe Momo's consciousness, and eventually, make Momo lose his free will and become a Swarm.</p>
-            <p>Finally, we got a chance to take off the mask from the evil Elon Musk's control! If you burn 🔥 two mamos 👹 and one vaccine 🧪, you can get a momo 👑. After connecting your wallet, please choose two mamos and one vaccine to burn and get a momo.</p>
-            <p>Attention: You need to authorize the Mamo and Vaccine Contract separately to complete the merge.</p>
-          </div>
-        </div> -->
-
         <div class="mint-tip">1,400 <span class="nft-name">IAMCHINESE</span> NFT <br> MINT TO BECOME <span class="name-bold">CHINESE</span></div>
 
         <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMint" :disabled="true">
           {{minting ? 'minting . . .' : 'mint'}}
         </button>
+
         <button
           v-else
           class="connect-btn"
@@ -130,14 +50,12 @@
 </template>
 
 <script>
-import { connectWallet, disconnectWallet, MergeAddress } from '@/module/wallet';
+import { connectWallet, disconnectWallet } from '@/module/wallet';
 import { formatAddress } from '@/module/utils';
 import { set } from '@/module/store';
 import { ethers } from 'ethers';
 import 'animate.css';
 import VueDanmaku from 'vue3-danmaku';
-import listData from '../assets/list.json';
-import listImage from '../assets/listImage.json';
 
 export default {
   components: {
@@ -166,10 +84,6 @@ export default {
       minting: false,
       mintResShow: false,
       failText: 'Mint Fail!',
-
-      mask: [{}, {}],
-      maskI: 0,
-      vaccine: [],
       danmus: [
         {
           zh: '爱姆拆腻日',
@@ -269,20 +183,15 @@ export default {
       }
     },
     goOpensea() {
-      window.open('https://opensea.io/collection/momo-romoverse');
+      window.open('https://opensea.io/collection/romoverse-vaccine');
     },
     async handleClick() {
-      for (let i = 0; i < listData.length; i += 1) {
-        this.listMap[listData[i]] = listImage[i];
-      }
-
       this.loading = true;
       try {
         const { provider, signer, web3Instance } = await connectWallet();
         const address = await signer.getAddress();
         const ens = await provider.lookupAddress(address);
         this.address = ens || formatAddress(address);
-        this.fullAddress = address;
         set('address', ens || formatAddress(address));
         set('fullAddress', address);
         web3Instance.on('accountsChanged', async (accounts) => {
@@ -307,12 +216,6 @@ export default {
         this.address = '';
         console.log('链接钱包失败，请重试', err);
       }
-
-      // await this.approveForAll();
-
-      // 1. 读取nft选择
-      await this.readMask();
-      await this.readVaccine();
       this.loading = false;
     },
     async disconnect() {
@@ -321,186 +224,18 @@ export default {
       set('fullAddress', '');
       this.address = '';
     },
-
-    async approveForAll() {
-      const {
-        signer, MaskContract, VaccineContract, MergeContract,
-      } = await connectWallet();
-      const maskCS = MaskContract.connect(signer);
-      const vaccineCS = VaccineContract.connect(signer);
-      const MergeCS = MergeContract.connect(signer);
-
-      // 1. 授权（mask vaccine）
-      await maskCS.setApprovalForAll(MergeAddress, true);
-      await vaccineCS.setApprovalForAll(MergeAddress, true);
-    },
-
-    async readMask() {
-      const {
-        signer, MaskContract, VaccineContract, MergeContract,
-      } = await connectWallet();
-      const maskCS = MaskContract.connect(signer);
-      const vaccineCS = VaccineContract.connect(signer);
-      const MergeCS = MergeContract.connect(signer);
-
-      // this.mask = [];
-
-      // 2. 读2份mask，按照maskI的顺序
-      const maskBalance = await maskCS.balanceOf(this.fullAddress);
-      if (maskBalance < 2) {
-        this.failText = 'There isn\'t enough Mamo to Merge!';
-
-        this.showFailToast = true;
-        setTimeout(() => {
-          this.showFailToast = false;
-        }, 20000);
-      }
-
-      const nftPromises = [];
-      for (let i = 0; i < maskBalance; i += 1) {
-        nftPromises.push(maskCS.tokenOfOwnerByIndex(this.fullAddress, i % maskBalance));
-      }
-      const allNfts = await Promise.all(nftPromises);
-
-      for (let i = 0; i < allNfts.length; i += 1) {
-        if (allNfts[i].toString() in this.listMap) {
-          this.maskList.push(allNfts[i]);
-        }
-      }
-
-      if (this.maskList.length < 2) {
-        this.failText = 'There isn\'t enough Mamo to Merge!';
-
-        this.showFailToast = true;
-        setTimeout(() => {
-          this.showFailToast = false;
-        }, 20000);
-      } else {
-        await this.readMaskUri();
-      }
-    },
-
-    async readMaskUri() {
-      const {
-        signer, MaskContract, VaccineContract, MergeContract,
-      } = await connectWallet();
-      const maskCS = MaskContract.connect(signer);
-
-      const test = [
-        'https://d2uby90uskngsu.cloudfront.net/nft/image/-FOVYVUckdaEbf1ApjO_9Lr9bBCfHJ9UuHMBVC0fDYQ.png',
-        'https://d2uby90uskngsu.cloudfront.net/nft/image/w-ngUYJSQhzCPb5eMogZZCfdssj1-B3x9bhWWXTA76w.png',
-        'https://green-actual-marsupial-37.mypinata.cloud/ipfs/QmVKRM98DZ8iMPq7sCHjVu7jsNf2oCrepUTe6VhjsCAdUB',
-      ];
-      for (let i = 0; i < 2; i += 1) {
-        this.mask[i].tokenID = this.maskList[(this.maskI + i) % this.maskList.length];
-        this.mask[i].uri = this.listMap[this.mask[i].tokenID];
-
-        if (this.mask[i].uri === '') {
-          this.mask[i].uri = test[(this.maskI + i) % 3];
-        }
-      }
-    },
-
-    async readVaccine() {
-      const {
-        signer, MaskContract, VaccineContract, MergeContract,
-      } = await connectWallet();
-      const maskCS = MaskContract.connect(signer);
-      const vaccineCS = VaccineContract.connect(signer);
-      const MergeCS = MergeContract.connect(signer);
-
-      // 1. 读1份vaccine
-      const vaccineBalance = await vaccineCS.balanceOf(this.fullAddress);
-      if (vaccineBalance < 1) {
-        this.failText = 'There isn\'t enough Vaccine to Merge!';
-
-        this.showFailToast = true;
-        setTimeout(() => {
-          this.showFailToast = false;
-        }, 20000);
-      }
-      this.vaccine[0] = {
-      };
-      this.vaccine[0].tokenID = await vaccineCS.tokenOfOwnerByIndex(this.fullAddress, vaccineBalance - 1);
-      this.vaccine[0].uri = await vaccineCS.tokenURI(this.vaccine[0].tokenID);
-      this.vaccine[0].uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwjPXiNbpWUuz4z4qjKgimzX1l3-SVnzTEdA&usqp=CAU';
-    },
-
-    async handleRefresh() {
-      this.maskI += 2;
-
-      await this.readMaskUri();
-    },
-
-    async callMerge() {
-      // alert('Comming Soon');
-      if (this.minting) {
-        return;
-      }
-      this.minting = true;
-
-      try {
-        const {
-          signer, MaskContract, VaccineContract, MergeContract,
-        } = await connectWallet();
-        const maskCS = MaskContract.connect(signer);
-        const vaccineCS = VaccineContract.connect(signer);
-        const MergeCS = MergeContract.connect(signer);
-
-        const tx1 = maskCS.approve(MergeAddress, this.mask[0].tokenID);
-        const tx2 = maskCS.approve(MergeAddress, this.mask[1].tokenID);
-        await Promise.all([tx1, tx2]);
-        const tx3 = await vaccineCS.approve(MergeAddress, this.vaccine[0].tokenID);
-        await tx3.wait();
-
-        const tx = await MergeCS.merge(this.mask[0].tokenID, this.mask[1].tokenID, this.vaccine[0].tokenID);
-        const response = await tx.wait();
-        this.mintResShow = true;
-        setTimeout(() => {
-          this.mintResShow = false;
-        }, 10000);
-        setTimeout(() => {
-          this.showToast = true;
-          setTimeout(() => {
-            this.showToast = false;
-          }, 3000);
-        }, 1500);
-      } catch (err) {
-        this.failText = 'Ops! Merge Fail';
-
-        this.showFailToast = true;
-        setTimeout(() => {
-          this.showFailToast = false;
-        }, 3000);
-        console.log(err);
-      }
-
-      this.minting = false;
-    },
-
     async callMint() {
-      try {
-        const { signer, VaccineContract, MergeContract } = await connectWallet();
-        const contractWithSigner = VaccineContract.connect(signer);
-        const mergeContractWithSigner = MergeContract.connect(signer);
-        const value = ethers.utils.parseEther(
-          '0.04',
-        );
-      } catch (err) {
-        console.log(err);
-      }
-
       if (this.minting) {
         return;
       }
       this.minting = true;
       try {
-        const { signer, VaccineContract } = await connectWallet();
-        const contractWithSigner = VaccineContract.connect(signer);
+        const { signer, contract } = await connectWallet();
+        const contractWithSigner = contract.connect(signer);
         const value = ethers.utils.parseEther(
-          '0',
+          '0。04',
         );
-        const tx = await contractWithSigner.mint(30, {
+        const tx = await contractWithSigner.mint(this.mintNum, {
           value,
         });
         const response = await tx.wait();
@@ -527,7 +262,6 @@ export default {
       }
       this.minting = false;
     },
-
   },
   watch: {
     page(newVal) {
