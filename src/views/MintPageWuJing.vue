@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { connectWallet, disconnectWallet } from '@/module/wallet';
+import { connectWallet, disconnectWallet } from '@/module/wallet-wujing';
 import { formatAddress } from '@/module/utils';
 import { set } from '@/module/store';
 import { ethers } from 'ethers';
