@@ -23,8 +23,8 @@ const providerOptions = {
 let web3ModelInstance;
 if (typeof window !== 'undefined') {
   web3ModelInstance = new Web3Modal({
-    // network: 'rinkeby',
-    network: 'mainnet',
+    network: 'goerli',
+    // network: 'mainnet',
     cacheProvider: true,
     providerOptions,
   });
