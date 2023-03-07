@@ -11,7 +11,7 @@
       <div class="connect-wallet">
         <div class="mint-tip">1,400 <span class="nft-name">IAMCHINESE</span> NFT <br> MINT TO BECOME <span class="name-bold">CHINESE</span></div>
 
-        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMint" :disabled="true">
+        <button v-if="address && !loading" class="mint-main-btn" :class="{'mint-main-btn-active':minting}" @click="callMint" :disabled="minting">
           {{minting ? 'minting . . .' : 'mint'}}
         </button>
 
