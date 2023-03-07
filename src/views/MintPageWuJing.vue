@@ -257,7 +257,7 @@ export default {
           console.log('Mint Fail: Don\'t be too greedy...!');
         } else {
           this.failText = 'Ops! Mint Fail';
-          console.log('Ops! Mint Fail');
+          console.log('fail:', err.message);
         }
         this.showFailToast = true;
         setTimeout(() => {
