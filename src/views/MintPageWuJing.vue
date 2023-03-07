@@ -234,7 +234,7 @@ export default {
         const { signer, contract } = await connectWallet();
         const contractWithSigner = contract.connect(signer);
         const value = ethers.utils.parseEther(
-          '0。04',
+          '0.04',
         );
         const tx = await contractWithSigner.mint(this.mintNum, {
           value,
