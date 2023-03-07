@@ -230,6 +230,7 @@ export default {
       }
       this.minting = true;
       try {
+        console.log('开始mint');
         const { signer, contract } = await connectWallet();
         const contractWithSigner = contract.connect(signer);
         const value = ethers.utils.parseEther(
@@ -240,6 +241,7 @@ export default {
         });
         const response = await tx.wait();
         this.mintResShow = true;
+        alert('success');
         setTimeout(() => {
           this.mintResShow = false;
         }, 4000);
@@ -252,8 +254,10 @@ export default {
       } catch (err) {
         if (err.message.includes('nums must less than')) {
           this.failText = 'Mint Fail: Don\'t be too greedy...!';
+          console.log('Mint Fail: Don\'t be too greedy...!');
         } else {
           this.failText = 'Ops! Mint Fail';
+          console.log('Ops! Mint Fail');
         }
         this.showFailToast = true;
         setTimeout(() => {
